@@ -1,0 +1,16 @@
+<label>UserName</label>
+<input
+  type="text"
+  [(ngModel)]="username"
+>
+<button
+  [disabled]="username===''"
+  (click)="onReset()"
+>RESET</button>
+<!-- <p>You input value is {{username===''?'null':username}}.</p> -->
+<!-- <p *ngIf="username!==''">You input value is {{username}}.</p> -->
+<p *ngIf="username!=='';else noMessage">You input value is {{username}}.</p>
+
+<ng-template #noMessage>
+  <h5 style="color:red">You never input something there!!</h5>
+</ng-template>

@@ -1,0 +1,26 @@
+<label>Server Name</label>
+<input
+  type="text"
+  (input)="onUpdateServerName($event)"
+>
+<input
+  type="text"
+  [(ngModel)]="serverName"
+>
+<p>{{serverName}}</p>
+<hr>
+
+<!-- <button type="button" disabled>Add Server</button> -->
+<button
+  type="button"
+  [disabled]="!allowNewServer"
+  (click)="onCreateServer()"
+>Add Server</button>
+
+<p>{{serverCreatingState}}</p>
+
+<!-- <p>{{!allowNewServer}}</p> -->
+<!-- <p [innerText]="!allowNewServer"></p> -->
+
+<hr>
+<app-server *ngFor="let item of serverList"></app-server>
