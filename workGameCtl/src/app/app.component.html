@@ -1,0 +1,9 @@
+<app-game-ctl (count)="onGetCount($event)"></app-game-ctl>
+<app-even
+  *ngFor="let item of argsEven"
+  [number]="item"
+></app-even>
+<app-odd
+  *ngFor="let item of argsOdd"
+  [number]="item"
+></app-odd>

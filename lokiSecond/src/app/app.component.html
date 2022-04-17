@@ -1,0 +1,34 @@
+<div class="container">
+  <app-cockpit
+    (sLoki)="onAddServerDone($event)"
+    (bLoki)="onAddBlueprintDone($event)"
+  ></app-cockpit>
+  <hr>
+  <div class="row">
+    <div class="col-xs-12">
+      <button
+        class="btn btn-danger"
+        (click)="onChangeOne()"
+      >Change 1st Element</button>
+      <button
+        class="btn btn-warning"
+        (click)="onKillOne()"
+      >Kill 1st Element</button>
+      <app-server-el
+        *ngFor="let item of serverElements"
+        [srcElement]="item"
+        [name]="item.name"
+      >
+        <!-- 投影start，事實上這裡應該還有card>card-header+card-body -->
+        <p #contentPpp>
+          <strong
+            *ngIf="item.type === 'server'"
+            style="color: red"
+          >{{ item.content }}</strong>
+          <em *ngIf="item.type === 'blueprint'">{{ item.content }}</em>
+        </p>
+        <!-- 投影end -->
+      </app-server-el>
+    </div>
+  </div>
+</div>
