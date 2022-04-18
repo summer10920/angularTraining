@@ -39,8 +39,8 @@
             >{{ gender }}
           </label>
         </div>
+        <button type="button" (click)="onAddlike()">Add like felid</button>
         <div formArrayName="likes">
-          <button (click)="onAddlike()">Add like felid</button>
           <div *ngFor="let item of getControls();let i = index">
             <input
               type="text"

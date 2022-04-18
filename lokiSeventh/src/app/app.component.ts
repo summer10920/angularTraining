@@ -17,21 +17,20 @@ export class AppComponent implements OnInit {
         'email': new FormControl(null, [Validators.required, Validators.email]),
       }),
       'gender': new FormControl('male'),
-      'likes': new FormArray([])
+      'likes': new FormArray([]) //※重點
     });
   }
 
   onSubmit() {
-    // console.log(this.myForm);
     console.log(this.myForm.value);
   }
-  onAddlike() {
+  onAddlike() { //※重點
     const newCtl = new FormControl(null, Validators.required);
 
-    //透過GET找到這個FormArray，並給予結果為FormArray型別
+    //※重點 - 透過GET找到這個FormArray，並給予結果為FormArray型別
     (<FormArray>this.myForm.get('likes')).push(newCtl);
   }
-  getControls() {
+  getControls() { //※重點
     return (<FormArray>this.myForm.get('likes')).controls;
   }
 }
