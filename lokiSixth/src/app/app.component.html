@@ -9,7 +9,11 @@
         (ngSubmit)="onSubmit()"
         #myForm="ngForm"
       >
-        <div id="user-data">
+        <div
+          id="user-data"
+          ngModelGroup="userData"
+          #myUserData="ngModelGroup"
+        >
           <div class="form-group">
             <label for="username">Username</label>
             <input
@@ -24,6 +28,7 @@
           <button
             class="btn btn-secondary"
             type="button"
+            (click)="suggestUserName()"
           >Suggest an Username</button>
           <div class="form-group">
             <label for="email">Mail</label>
@@ -39,6 +44,7 @@
             >
           </div>
           <p *ngIf="!myMail.valid&&myMail.dirty">Please input valid value</p>
+          <p *ngIf="!myUserData.valid&&myUserData.dirty">Please check user and mail</p>
         </div>
         <div class="form-group">
           <label for="secret">Secret Questions</label>
@@ -58,8 +64,21 @@
             rows="3"
             [(ngModel)]="answer"
           ></textarea>
-
+          <div
+            class="radio"
+            *ngFor="let item of genders"
+          >
+            <label>
+              <input
+                type="radio"
+                [value]="item"
+                name="gender"
+                ngModel="woman"
+              > {{item}}
+            </label>
+          </div>
         </div>
+        <hr>
         <button
           class="btn btn-primary"
           type="submit"

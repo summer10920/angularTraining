@@ -8,16 +8,25 @@ import { NgForm } from '@angular/forms';
 })
 export class AppComponent {
   @ViewChild('myForm') viewForm!: NgForm;
-  defaultAns = 'pet'; //※重點
-  answer='your answer';
-  
+  defaultAns = 'pet';
+  answer = 'your answer';
+  genders = ['man', 'woman']; //※重點
+
   suggestUserName() {
     const suggestedName = 'Superuser';
+    // const defaultData = {
+    //   gender: "man",
+    //   secret: "pet",
+    //   userAns: "your sky",
+    //   userData: { username: 'super', email: 'aa@aa' }
+    // };
+    // this.viewForm.setValue(defaultData);
+    this.viewForm.form.patchValue({
+      userData: { username: suggestedName }
+    });
   }
-  // onSubmit(form: NgForm) {
-  //   console.log(form.value);
-  // }
   onSubmit() {
     console.log(this.viewForm.value);
+    this.viewForm.reset();
   }
 }
