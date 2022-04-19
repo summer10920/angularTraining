@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { stringify } from 'querystring';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -14,10 +13,26 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.myForm = new FormGroup({
-      'username': new FormControl(null),
-      'email': new FormControl(null),
-      'gender': new FormControl('male')
+      'userData': new FormGroup({
+        'username': new FormControl(null, Validators.required),
+        'email': new FormControl(null, [Validators.required, Validators.email]),
+      }),
+      'gender': new FormControl('male'),
+      'likes': new FormArray([]) //※重點
     });
+  }
+
+  onSubmit() {
+    console.log(this.myForm.value);
+  }
+  onAddlike() { //※重點
+    const newCtl = new FormControl(null, Validators.required);
+
+    //※重點 - 透過GET找到這個FormArray，並給予結果為FormArray型別
+    (<FormArray>this.myForm.get('likes')).push(newCtl);
+  }
+  getControls() { //※重點
+    return (<FormArray>this.myForm.get('likes')).controls;
   }
 
   //非強迫，可指定return 的 強型別
