@@ -16,6 +16,7 @@ import { RouterModule, Routes } from '@angular/router'; //※重點
 const lokiRoutes: Routes = [ //※重點
   { path: '', component: HomeComponent },
   { path: 'users', component: UsersComponent },
+  { path: 'users/:id/:name', component: UserComponent },
   { path: 'servers', component: ServersComponent }
 ];
 
