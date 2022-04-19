@@ -36,10 +36,14 @@
             <input
               type="radio"
               [value]="gender"
+              formControlName="gender"
             >{{ gender }}
           </label>
         </div>
-        <button type="button" (click)="onAddlike()">Add like felid</button>
+        <button
+          type="button"
+          (click)="onAddlike()"
+        >Add like felid</button>
         <div formArrayName="likes">
           <div *ngFor="let item of getControls();let i = index">
             <input
