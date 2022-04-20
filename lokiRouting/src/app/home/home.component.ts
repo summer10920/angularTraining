@@ -13,8 +13,16 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
   }
 
-  loadServers() {  //※重點
-    //run sql content then go page to servers
-    this.lokiRouter.navigate(['/servers']);
+  loadServers(id: number) {  //※重點
+    // this.lokiRouter.navigate(['/servers']);
+    this.lokiRouter.navigate(
+      ['/servers', id, 'edit'],
+      {
+        queryParams: {
+          allowEdit: 1
+        },
+        fragment: "loading"
+      }
+    );
   }
 }

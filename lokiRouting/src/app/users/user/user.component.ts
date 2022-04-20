@@ -1,13 +1,16 @@
 import { ActivatedRoute, Params } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.css']
 })
-export class UserComponent implements OnInit {
+export class UserComponent implements OnInit, OnDestroy {
   user!: { id: number, name: string };
+
+  subscriptionKey!: Subscription;
 
   constructor(private lokiRoute: ActivatedRoute) { }
 
@@ -18,13 +21,14 @@ export class UserComponent implements OnInit {
       name: this.lokiRoute.snapshot.params['name']
     }
 
-    this.lokiRoute.params.subscribe((obsParams: Params) => {
+    this.subscriptionKey = this.lokiRoute.params.subscribe((obsParams: Params) => {
       this.user = {
         id: obsParams.id,
         name: obsParams.name
       }
     });
-    //console.log(this.user); //try http://localhost:4200/users/3/loki
   }
-
+  ngOnDestroy(): void {
+    this.subscriptionKey.unsubscribe();
+  }
 }

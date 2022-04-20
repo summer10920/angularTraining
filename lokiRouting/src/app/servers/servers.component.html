@@ -1,8 +1,11 @@
 <div class="row">
   <div class="col-xs-12 col-sm-4">
     <div class="list-group">
+      <!-- 拿掉 ,'edit' -->
       <a
-        href="#"
+        [routerLink]="['/servers',server.id]"
+        [queryParams]="{allowEdit:server.id===3?1:0}"
+        fragment="loading"
         class="list-group-item"
         *ngFor="let server of servers"
       >
@@ -11,9 +14,10 @@
     </div>
   </div>
   <div class="col-xs-12 col-sm-4">
-    <button (click)="reloadServer()">Reload Server</button>
+    <router-outlet></router-outlet>
+    <!-- <button (click)="reloadServer()">Reload Server</button>
     <app-edit-server></app-edit-server>
-    <hr>
-    <app-server></app-server>
+    <hr> -->
+    <!-- <app-server></app-server> -->
   </div>
 </div>
