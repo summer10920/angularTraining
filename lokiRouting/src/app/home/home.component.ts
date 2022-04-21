@@ -1,5 +1,6 @@
-import { Router } from '@angular/router';//※重點
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from './../auth.service';//※重點
 
 @Component({
   selector: 'app-home',
@@ -8,7 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private lokiRouter: Router) { }//※重點
+  constructor(
+    private lokiRouter: Router,
+    private authService: AuthService //※重點
+  ) { }
 
   ngOnInit() {
   }
@@ -24,5 +28,12 @@ export class HomeComponent implements OnInit {
         fragment: "loading"
       }
     );
+  }
+
+  onLogin() { //※重點
+    this.authService.login();
+  }
+  onLogout() { //※重點
+    this.authService.logout();
   }
 }

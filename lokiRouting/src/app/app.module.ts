@@ -1,3 +1,4 @@
+import { ServerResolveService } from './servers/server/server-resolve.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -11,7 +12,10 @@ import { ServerComponent } from './servers/server/server.component';
 import { ServersService } from './servers/servers.service';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component'; //※重點
 import { AppRoutingModule } from './app-routing.module';
+import { AuthGuardService } from './auth-guard.service';
+import { AuthService } from './auth.service';
 
+import { DeactivateGuardService } from './servers/edit-server/deactivate-guard.service';
 
 @NgModule({
   declarations: [
@@ -29,7 +33,7 @@ import { AppRoutingModule } from './app-routing.module';
     FormsModule,
     AppRoutingModule
   ],
-  providers: [ServersService],
+  providers: [ServersService, AuthService, AuthGuardService, DeactivateGuardService, ServerResolveService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
