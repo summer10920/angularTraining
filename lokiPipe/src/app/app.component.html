@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <input
+        type="text"
+        [(ngModel)]="filterStatus"
+        list="options"
+      >
+      <datalist id="options">
+        <option value="stable">stable</option>
+        <option value="offline">offline</option>
+      </datalist>
+      <button (click)="addFakeServer()">Add Test Server</button>
+      <h1>Server is {{appStatus | async}}</h1>
+      <hr>
+      <ul class="list-group">
+        <li
+          class="list-group-item"
+          *ngFor="let server of servers | filterString:filterStatus:'status'"
+          [ngClass]="getStatusClasses(server)"
+        >
+          <span class="badge rounded-pill bg-secondary float-end">
+            {{ server.status }}
+          </span>
+          <strong>{{ server.name | shortText:5 }}</strong> | {{ server.instanceType| uppercase }} | {{ server.started |
+          date:'fullDate' | uppercase}}
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
