@@ -1,4 +1,3 @@
-import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
@@ -8,9 +7,9 @@ import { HeaderComponent } from './header/header.component';
 import { AppRoutingModule } from './app-routing.module';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core.module';
-import { LoggingService } from './logging.service';
-import { StoreModule } from '@ngrx/store'; //重點
-import { shoppingListReducer } from './shopping-list/store/shopping-list.reducer';
+// import { LoggingService } from './logging.service';
+import { StoreModule } from '@ngrx/store';
+import { ShoppingListReducer } from './shopping-list/store/shopping-list.reducer';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent],
@@ -18,9 +17,9 @@ import { shoppingListReducer } from './shopping-list/store/shopping-list.reducer
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    StoreModule.forRoot({ ShoppingListKey: shoppingListReducer }), //重點
     SharedModule,
-    CoreModule
+    CoreModule,
+    StoreModule.forRoot({ ShoppingListKey: ShoppingListReducer })
   ],
   bootstrap: [AppComponent],
   // providers: [LoggingService]

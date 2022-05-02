@@ -1,19 +1,19 @@
-<nav class="navbar navbar-dark bg-primary mb-5">
+<nav class="navbar navbar-dark bg-primary mb-5 navbar-expand-lg ">
   <div class="container-fluid">
     <div class="navbar-header">
       <a routerLink="/" class="navbar-brand">Recipe Book</a>
     </div>
 
     <div class="collapse navbar-collapse">
-      <ul class="nav navbar-nav">
-        <li routerLinkActive="active" *ngIf="isAuthenticated">
-          <a routerLink="/recipes">Recipes</a>
+      <ul class="navbar-nav">
+        <li class="nav-item" routerLinkActive="active" *ngIf="isAuthenticated">
+          <a class="nav-link" routerLink="/recipes">Recipes</a>
         </li>
-        <li routerLinkActive="active" *ngIf="!isAuthenticated">
-          <a routerLink="/auth">Authenticate</a>
+        <li class="nav-item" routerLinkActive="active" *ngIf="!isAuthenticated">
+          <a class="nav-link" routerLink="/auth">Authenticate</a>
         </li>
-        <li routerLinkActive="active">
-          <a routerLink="/shopping-list">Shopping List</a>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="/shopping-list">Shopping List</a>
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
