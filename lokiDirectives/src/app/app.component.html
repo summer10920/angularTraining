@@ -17,7 +17,7 @@
           [ngStyle]="{backgroundColor:number%2==0?'yellow':null}"
         >{{number}} </li>
       </ul>
-      <ul
+      <!-- <ul
         *ngIf="!onlyOdd"
         class="list-group"
       >
@@ -27,7 +27,29 @@
           [ngClass]="{even:number%2==0}"
           [ngStyle]="{backgroundColor:number%2==0?'green':null}"
         >{{number}} </li>
+      </ul> -->
+      <ul
+        *appUnless="!onlyOdd"
+        class="list-group"
+      >
+        <li
+          class="list-group-item"
+          *ngFor="let number of evens"
+          [ngClass]="{even:number%2==0}"
+          [ngStyle]="{backgroundColor:number%2==0?'green':null}"
+        >{{number}} </li>
       </ul>
+      <p basicHightLight>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque, architecto.</p>
+      <p
+        appBetterHighLight="gray"
+        focusColor="yellow"
+      >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque, architecto.</p>
+      <div [ngSwitch]="values">
+        <p *ngSwitchCase="5">value is 5</p>
+        <p *ngSwitchCase="10">value is 10</p>
+        <p *ngSwitchCase="15">value is 15</p>
+        <p *ngSwitchDefault>value is default</p>
+      </div>
     </div>
   </div>
 </div>
