@@ -38,14 +38,13 @@ export class AppComponent implements OnInit {
 
   private fetchPosts() {
     // this.http.get(
-    this.http.get<{ [key: string]: PostModel }>(
+    this.http.get<{ [key: string]: PostModel }>( //※重點:方法二
       'https://loki-angular-training-default-rtdb.asia-southeast1.firebasedatabase.app/posts.json'
     ).pipe(
-      // map(responseData => {
-      // map((responseData: { [key: string]: PostModel }) => {
+      // map((responseData: { [key: string]: PostModel }) => {  //※重點:方法一
       map(responseData => {
         console.log(responseData);
-        const postAry: PostModel[] = [];
+        const postAry: PostModel[] = []; //※重點
         for (const key in responseData) {
           if (responseData.hasOwnProperty(key))
             postAry.push({ ...responseData[key], id: key })
