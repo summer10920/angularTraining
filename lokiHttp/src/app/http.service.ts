@@ -1,7 +1,7 @@
 import { PostModel } from './post.model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEventType, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import { Subject, throwError } from 'rxjs';
 
 @Injectable({
@@ -17,7 +17,10 @@ export class HttpService {
   addPost(postData: PostModel) {
     this.http.post(
       'https://loki-angular-training-default-rtdb.asia-southeast1.firebasedatabase.app/posts.json',
-      postData
+      postData,
+      {
+        observe: 'response'
+      }
     ).subscribe(
       response => console.log(response),
       err => this.errSubject.next(err)
@@ -25,8 +28,25 @@ export class HttpService {
   }
 
   fetchPost() {
+    let myHeaders = new HttpHeaders();
+    myHeaders = myHeaders.append('CustomHeader', 'Loki Jiang');
+    myHeaders = myHeaders.append('Authorization', 'my-auth-token');
+
+    let myParams = new HttpParams();
+    myParams = myParams.append('print', 'pretty');
+    myParams = myParams.append('todo', 'add');
+
     return this.http.get<{ [key: string]: PostModel }>(
-      'https://loki-angular-training-default-rtdb.asia-southeast1.firebasedatabase.app/posts.json'
+      'https://loki-angular-training-default-rtdb.asia-southeast1.firebasedatabase.app/posts.json',
+      {
+        headers: myHeaders,
+        // headers: new HttpHeaders({
+        //   CustomHeader: 'Loki Jiang',
+        //   Authorization: 'my-auth-token'
+        // }),
+        params: myParams
+        // params: new HttpParams().set('article', '3')
+      }
     ).pipe(
       map(responseData => {
         console.log(responseData);
@@ -37,19 +57,23 @@ export class HttpService {
         }
         return postAry;
       }),
-      catchError(errorRes => { //catchError可以幫助我們在回傳前做些事
-        return throwError(errorRes);
-      })
+      catchError(errorRes => throwError(errorRes))
     );
-    // ).subscribe(response => {
-    //   this.loading = false; //※重點
-    //   this.loadedPosts = response;
-    // });
   }
 
   deletePostAll() {
     return this.http.delete(
-      'https://loki-angular-training-default-rtdb.asia-southeast1.firebasedatabase.app/posts.json'
+      'https://loki-angular-training-default-rtdb.asia-southeast1.firebasedatabase.app/posts.json',
+      {
+        observe: 'events',
+        responseType: 'text'
+      }
+    ).pipe(
+      tap(event => {
+        if (event.type === HttpEventType.Sent) console.log('刪除提交中');
+        if (event.type === HttpEventType.Response) console.log('刪除已回應');
+        console.log(event);
+      })
     );
   }
 }
