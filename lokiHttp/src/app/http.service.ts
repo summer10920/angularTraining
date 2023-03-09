@@ -1,8 +1,8 @@
 import { PostModel } from './post.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs/operators';
-import { Subject } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+import { Subject, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -36,6 +36,9 @@ export class HttpService {
             postAry.push({ ...responseData[key], id: key })
         }
         return postAry;
+      }),
+      catchError(errorRes => { //catchError可以幫助我們在回傳前做些事
+        return throwError(errorRes);
       })
     );
     // ).subscribe(response => {

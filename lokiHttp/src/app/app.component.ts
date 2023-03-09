@@ -52,12 +52,27 @@ export class AppComponent implements OnInit, OnDestroy {
   private fetchPosts() {
     this.loading = true;
 
-    this.HttpService.fetchPost().subscribe(response => {
-      this.loading = false;
-      this.loadedPosts = response;
-    }, err => { //※重點
-      console.log(err);
-      this.errorResponse = err;
+    // 寫法一
+    // this.HttpService.fetchPost().subscribe(response => {
+    //   this.loading = false;
+    //   this.loadedPosts = response;
+    // }, err => { //※重點
+    //   this.loading = false;
+    //   console.log(err);
+    //   this.errorResponse = err;
+    // });
+
+    // 寫法二
+    this.HttpService.fetchPost().subscribe({
+      next: response => {
+        this.loading = false;
+        this.loadedPosts = response;
+      },
+      error: err => {
+        this.loading = false;
+        console.log(err);
+        this.errorResponse = err;
+      }
     });
   }
 }
