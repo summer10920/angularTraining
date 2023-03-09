@@ -12,7 +12,7 @@ import { PostModel } from './post.model';
 export class AppComponent implements OnInit {
   loadedPosts = [];
   loading = false; //※重點
-  errorMsg = null;
+  errorResponse = null;
 
   constructor(
     private http: HttpClient,
@@ -47,7 +47,7 @@ export class AppComponent implements OnInit {
       this.loadedPosts = response;
     }, err => { //※重點
       console.log(err);
-      this.errorMsg = err.message;
+      this.errorResponse = err;
     });
   }
 }
