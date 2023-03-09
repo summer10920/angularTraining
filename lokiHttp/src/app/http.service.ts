@@ -38,4 +38,10 @@ export class HttpService {
     //   this.loadedPosts = response;
     // });
   }
+
+  deletePostAll() {
+    return this.http.delete(
+      'https://loki-angular-training-default-rtdb.asia-southeast1.firebasedatabase.app/posts.json'
+    );
+  }
 }
