@@ -1,3 +1,4 @@
+import { HttpService } from './http.service';
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
@@ -13,7 +14,8 @@ export class AppComponent implements OnInit {
   loading = false; //※重點
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private HttpService: HttpService
   ) { }
 
   ngOnInit() {
@@ -21,10 +23,11 @@ export class AppComponent implements OnInit {
   }
 
   onCreatePost(postData: PostModel) {
-    this.http.post(
-      'https://loki-angular-training-default-rtdb.asia-southeast1.firebasedatabase.app/posts.json',
-      postData
-    ).subscribe(response => console.log(response));
+    this.HttpService.addPost(postData);
+    // this.http.post(
+    //   'https://loki-angular-training-default-rtdb.asia-southeast1.firebasedatabase.app/posts.json',
+    //   postData
+    // ).subscribe(response => console.log(response));
   }
 
   onFetchPosts() {
