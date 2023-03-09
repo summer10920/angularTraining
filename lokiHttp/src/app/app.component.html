@@ -1,7 +1,10 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12 col-md-6 col-md-offset-3">
-      <form #postForm="ngForm" (ngSubmit)="onCreatePost(postForm.value)">
+      <form
+        #postForm="ngForm"
+        (ngSubmit)="onCreatePost(postForm.value)"
+      >
         <div class="form-group">
           <label for="title">Title</label>
           <input
@@ -27,31 +30,39 @@
           class="btn btn-primary"
           type="submit"
           [disabled]="!postForm.valid"
-        >
-          Send Post
-        </button>
+        > Send Post </button>
       </form>
     </div>
   </div>
   <hr />
   <div class="row">
     <div class="col-xs-12 col-md-6 col-md-offset-3">
-      <button class="btn btn-primary" (click)="onFetchPosts()">
-        Fetch Posts
-      </button>
-      |
       <button
+        class="btn btn-primary"
+        (click)="onFetchPosts()"
+      > Fetch Posts </button> | <button
         class="btn btn-danger"
         [disabled]="loadedPosts.length < 1"
         (click)="onClearPosts()"
-      >
-        Clear Posts
-      </button>
+      > Clear Posts </button>
     </div>
   </div>
   <div class="row">
     <div class="col-xs-12 col-md-6 col-md-offset-3">
-      <p>No posts available!</p>
+      <p *ngIf="loading">Loading...</p>
+      <p *ngIf="loadedPosts.length<1 && !loading">No posts available!</p>
+      <ul
+        *ngIf="loadedPosts.length>0 && !loading"
+        class="list-group"
+      >
+        <li
+          class="list-group-item"
+          *ngFor="let item of loadedPosts"
+        >
+          <h3>{{item.title}}</h3>
+          <p>{{item.content}}</p>
+        </li>
+      </ul>
     </div>
   </div>
 </div>

@@ -10,6 +10,7 @@ import { PostModel } from './post.model';
 })
 export class AppComponent implements OnInit {
   loadedPosts = [];
+  loading = false; //※重點
 
   constructor(
     private http: HttpClient
@@ -19,7 +20,6 @@ export class AppComponent implements OnInit {
     this.fetchPosts();
   }
 
-  // onCreatePost(postData: { title: string; content: string }) {
   onCreatePost(postData: PostModel) {
     this.http.post(
       'https://loki-angular-training-default-rtdb.asia-southeast1.firebasedatabase.app/posts.json',
@@ -37,20 +37,22 @@ export class AppComponent implements OnInit {
   }
 
   private fetchPosts() {
-    // this.http.get(
-    this.http.get<{ [key: string]: PostModel }>( //※重點:方法二
+    this.loading = true;//※重點
+    this.http.get<{ [key: string]: PostModel }>(
       'https://loki-angular-training-default-rtdb.asia-southeast1.firebasedatabase.app/posts.json'
     ).pipe(
-      // map((responseData: { [key: string]: PostModel }) => {  //※重點:方法一
       map(responseData => {
         console.log(responseData);
-        const postAry: PostModel[] = []; //※重點
+        const postAry: PostModel[] = [];
         for (const key in responseData) {
           if (responseData.hasOwnProperty(key))
             postAry.push({ ...responseData[key], id: key })
         }
         return postAry;
       })
-    ).subscribe(response => console.log(response));
+    ).subscribe(response => {
+      this.loading = false; //※重點
+      this.loadedPosts = response;
+    });
   }
 }
