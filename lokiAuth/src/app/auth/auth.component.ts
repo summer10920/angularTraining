@@ -8,6 +8,8 @@ import { Component } from '@angular/core';
 })
 export class AuthComponent {
   isLoginMode = true;
+  isLoading = false;
+  isError = null;
 
   constructor(
     private AuthService: AuthService
@@ -25,9 +27,18 @@ export class AuthComponent {
       // 登入作業
     } else {
       // 註冊作業
+      this.isLoading = true;
       this.AuthService.singUp(form.value.email, form.value.password).subscribe(
-        resData => console.log(resData),
-        error => console.error(error)
+        resData => {
+          console.log(resData);
+          this.isLoading = false;
+        },
+        error => {
+          // console.error(error);
+          // this.isError = error.error.error.message;
+          this.isError = error;
+          this.isLoading = false;
+        }
       );
     }
 
