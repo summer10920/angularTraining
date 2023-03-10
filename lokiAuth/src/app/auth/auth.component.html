@@ -3,15 +3,28 @@
     <form>
       <div class="form-group">
         <label for="email">E-Mail</label>
-        <input type="email" id="email" class="form-control" />
+        <input
+          type="email"
+          id="email"
+          class="form-control"
+        />
       </div>
       <div class="form-group">
         <label for="password">Password</label>
-        <input type="password" id="password" class="form-control" />
+        <input
+          type="password"
+          id="password"
+          class="form-control"
+        />
       </div>
       <div>
-        <button class="btn btn-primary">Sign Up</button> |
-        <button class="btn btn-primary">Switch to Login</button>
+        <button
+          class="btn btn-primary"
+          type="submit"
+        >{{isLoginMode?'Login':'Sign Up'}}</button> | <button
+          class="btn btn-primary"
+          (click)="onSwitchMode()"
+        >Switch to {{!isLoginMode?'Login':'Sign Up'}}</button>
       </div>
     </form>
   </div>
