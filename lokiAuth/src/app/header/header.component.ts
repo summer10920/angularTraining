@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { AuthService } from './../auth/auth.service';
+import { Subscription } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { DataStorageService } from '../shared/data-storage.service';
 
@@ -6,8 +8,25 @@ import { DataStorageService } from '../shared/data-storage.service';
   selector: 'app-header',
   templateUrl: './header.component.html'
 })
-export class HeaderComponent {
-  constructor(private dataStorageService: DataStorageService) {}
+export class HeaderComponent implements OnInit, OnDestroy {
+  private userSub: Subscription;
+  isLogged = false;
+
+  constructor(
+    private dataStorageService: DataStorageService,
+    private AuthService: AuthService
+  ) { }
+
+
+  ngOnInit(): void {
+    this.userSub = this.AuthService.userSbj.subscribe(user => {
+      this.isLogged = !!user;  // user存在就等價true
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.userSub.unsubscribe();
+  }
 
   onSaveData() {
     this.dataStorageService.storeRecipes();

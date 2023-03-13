@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { AuthResponseData, AuthService } from './auth.service';
 import { NgForm } from '@angular/forms';
 import { Component } from '@angular/core';
@@ -13,7 +14,8 @@ export class AuthComponent {
   isError = null;
 
   constructor(
-    private AuthService: AuthService
+    private AuthService: AuthService,
+    private Router: Router
   ) { }
 
   onSwitchMode() {
@@ -51,6 +53,7 @@ export class AuthComponent {
       resData => {
         console.log(resData);
         this.isLoading = false;
+        this.Router.navigate(['/recipes']);
       },
       error => {
         this.isError = error;
