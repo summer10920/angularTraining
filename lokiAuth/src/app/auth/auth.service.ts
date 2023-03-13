@@ -22,6 +22,7 @@ export class AuthService {
 
   // userSbj = new Subject<User>();
   userSbj = new BehaviorSubject<User>(null);
+  tokenExpireTimer: NodeJS.Timer;
 
   constructor(
     private http: HttpClient,
@@ -77,12 +78,29 @@ export class AuthService {
       new Date(userKeep._tokenExpireDate)
     );
 
-    if (reloadUser.token) this.userSbj.next(reloadUser);
+    if (reloadUser.token) {
+      this.userSbj.next(reloadUser);
+
+      const expirationDuration = new Date(userKeep._tokenExpireDate).getTime() - new Date().getTime();
+      this.autoSignOut(expirationDuration);//提供單位為毫秒
+    }
   }
 
   signOut() {
     this.userSbj.next(null);
     this.Router.navigate(['auth']);
+    localStorage.removeItem('userData');
+    if (this.tokenExpireTimer) {
+      clearTimeout(this.tokenExpireTimer);
+      this.tokenExpireTimer = null;
+    }
+  }
+
+  autoSignOut(expireTime: number) {
+    console.log(expireTime); //firebase預設為1H，觀察是不是3600000
+    this.tokenExpireTimer = setTimeout(() => {
+      this.signOut();
+    }, expireTime)
   }
 
   private errorHandle(errorRes: HttpErrorResponse) {
@@ -120,5 +138,6 @@ export class AuthService {
     );
     this.userSbj.next(user);
     localStorage.setItem('userData', JSON.stringify(user));
+    this.autoSignOut(expiresIn * 1000);
   }
 }
