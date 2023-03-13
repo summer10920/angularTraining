@@ -66,6 +66,20 @@ export class AuthService {
     );
   }
 
+  autoSignIn() {
+    const userKeep = JSON.parse(localStorage.getItem('userData'));
+    if (!userKeep) return;
+
+    const reloadUser = new User(
+      userKeep.email,
+      userKeep.id,
+      userKeep._token,
+      new Date(userKeep._tokenExpireDate)
+    );
+
+    if (reloadUser.token) this.userSbj.next(reloadUser);
+  }
+
   signOut() {
     this.userSbj.next(null);
     this.Router.navigate(['auth']);
@@ -105,5 +119,6 @@ export class AuthService {
       new Date(new Date().getTime() + expiresIn * 1000)
     );
     this.userSbj.next(user);
+    localStorage.setItem('userData', JSON.stringify(user));
   }
 }
