@@ -3,12 +3,13 @@ import { Injectable } from '@angular/core';
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-interface AuthResponseData {
+export interface AuthResponseData {
   idToken: string; // Firebase 身份驗證 ID 令牌
   email: string; // 用戶的電子郵件
   refreshToken: string; // Firebase 身份驗證刷新token
   expiresIn: string; // token過期的秒數
   localId: string; // 用戶的uid
+  registered?:boolean; // 電子郵件是否用於現有帳戶
 }
 
 @Injectable({
@@ -48,6 +49,17 @@ export class AuthService {
 
         return throwError(errorMsg);
       })
+    );
+  }
+
+  singIn(email: string, password: string) {
+    return this.http.post<AuthResponseData>(
+      'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBD5oglUIsgkYiQlabvMw1Y8OGsGC_w6JA',
+      {
+        email: email,
+        password: password,
+        returnSecureToken: true
+      }
     );
   }
 }

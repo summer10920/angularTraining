@@ -1,6 +1,7 @@
-import { AuthService } from './auth.service';
+import { AuthResponseData, AuthService } from './auth.service';
 import { NgForm } from '@angular/forms';
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-auth',
@@ -23,24 +24,39 @@ export class AuthComponent {
     // console.log(form.value);
     if (form.invalid) return;
 
-    if (this.isLoginMode) {
+    let authObservable: Observable<AuthResponseData>;
+    this.isLoading = true;
+
+    if (this.isLoginMode)
       // 登入作業
-    } else {
+      authObservable = this.AuthService.singIn(form.value.email, form.value.password);
+
+    else
       // 註冊作業
-      this.isLoading = true;
-      this.AuthService.singUp(form.value.email, form.value.password).subscribe(
-        resData => {
-          console.log(resData);
-          this.isLoading = false;
-        },
-        error => {
-          // console.error(error);
-          // this.isError = error.error.error.message;
-          this.isError = error;
-          this.isLoading = false;
-        }
-      );
-    }
+      authObservable = this.AuthService.singUp(form.value.email, form.value.password);
+    // this.AuthService.singUp(form.value.email, form.value.password).subscribe(
+    //   resData => {
+    //     console.log(resData);
+    //     this.isLoading = false;
+    //   },
+    //   error => {
+    //     // console.error(error);
+    //     // this.isError = error.error.error.message;
+    //     this.isError = error;
+    //     this.isLoading = false;
+    //   }
+    // );
+
+    authObservable.subscribe(
+      resData => {
+        console.log(resData);
+        this.isLoading = false;
+      },
+      error => {
+        this.isError = error;
+        this.isLoading = false;
+      }
+    );
 
     form.reset();
   }
