@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { throwError, Subject, BehaviorSubject } from 'rxjs';
@@ -23,7 +24,8 @@ export class AuthService {
   userSbj = new BehaviorSubject<User>(null);
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private Router: Router
   ) { }
 
   singUp(email: string, password: string) {
@@ -62,6 +64,11 @@ export class AuthService {
         +response.expiresIn
       ))
     );
+  }
+
+  signOut() {
+    this.userSbj.next(null);
+    this.Router.navigate(['auth']);
   }
 
   private errorHandle(errorRes: HttpErrorResponse) {

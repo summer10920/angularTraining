@@ -22,7 +22,7 @@
         class="nav navbar-nav navbar-right"
         *ngIf="isLogged"
       >
-        <li><a style="cursor:pointer">Logout</a></li>
+        <li><a style="cursor:pointer" (click)="onLogout()">Logout</a></li>
         <li
           class="dropdown"
           appDropdown
