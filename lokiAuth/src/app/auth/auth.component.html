@@ -1,8 +1,13 @@
 <div class="row">
   <div class="col-xs-12 col-md-6 col-md-offset-3">
-    <div class="alert alert-danger" *ngIf="isError">
+    <!-- <div class="alert alert-danger" *ngIf="isError">
       {{isError}}
-    </div>
+    </div> -->
+    <app-alert
+      [message]="isError"
+      *ngIf="isError"
+      (close)="onErrorHandle()"
+    ></app-alert>
     <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
     <form
       #authForm="ngForm"
