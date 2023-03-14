@@ -22,7 +22,7 @@ export class AuthService {
 
   // userSbj = new Subject<User>();
   userSbj = new BehaviorSubject<User>(null);
-  tokenExpireTimer: NodeJS.Timer;
+  tokenExpireTimer: any;
 
   constructor(
     private http: HttpClient,
