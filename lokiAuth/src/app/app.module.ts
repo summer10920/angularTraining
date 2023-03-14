@@ -37,7 +37,7 @@ import { AlertComponent } from './shared/alert/alert/alert.component';
     RecipeEditComponent,
     AuthComponent,
     LoadingSpinnerComponent,
-    AlertComponent
+    AlertComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,6 +54,9 @@ import { AlertComponent } from './shared/alert/alert/alert.component';
       multi: true
     }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents:[
+    AlertComponent,
+  ]
 })
 export class AppModule { }

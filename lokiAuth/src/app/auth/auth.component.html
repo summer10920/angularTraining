@@ -3,11 +3,12 @@
     <!-- <div class="alert alert-danger" *ngIf="isError">
       {{isError}}
     </div> -->
-    <app-alert
+    <!-- <app-alert
       [message]="isError"
       *ngIf="isError"
       (close)="onErrorHandle()"
-    ></app-alert>
+    ></app-alert> -->
+    <ng-template #dynamicAlertComp></ng-template>
     <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
     <form
       #authForm="ngForm"

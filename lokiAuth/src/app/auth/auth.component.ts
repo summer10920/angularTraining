@@ -1,8 +1,11 @@
+import { take } from 'rxjs/operators';
+import { AlertComponent } from './../shared/alert/alert/alert.component';
 import { Router } from '@angular/router';
 import { AuthResponseData, AuthService } from './auth.service';
 import { NgForm } from '@angular/forms';
-import { Component } from '@angular/core';
+import { Component, ComponentFactoryResolver, ViewChild, ViewContainerRef } from '@angular/core';
 import { Observable } from 'rxjs';
+// import { PlaceholderDirective } from '../shared/placeholder/placeholder.directive';
 
 @Component({
   selector: 'app-auth',
@@ -12,10 +15,16 @@ export class AuthComponent {
   isLoginMode = true;
   isLoading = false;
   isError = null;
+  // @ViewChild(PlaceholderDirective, { static: false }) alertHost: PlaceholderDirective;
+  @ViewChild('dynamicAlertComp', {
+    read: ViewContainerRef,
+    static: false
+  }) theViewContainerRef: ViewContainerRef;
 
   constructor(
     private AuthService: AuthService,
-    private Router: Router
+    private Router: Router,
+    private ComponentFactoryResolver: ComponentFactoryResolver
   ) { }
 
   onSwitchMode() {
@@ -36,18 +45,6 @@ export class AuthComponent {
     else
       // 註冊作業
       authObservable = this.AuthService.singUp(form.value.email, form.value.password);
-    // this.AuthService.singUp(form.value.email, form.value.password).subscribe(
-    //   resData => {
-    //     console.log(resData);
-    //     this.isLoading = false;
-    //   },
-    //   error => {
-    //     // console.error(error);
-    //     // this.isError = error.error.error.message;
-    //     this.isError = error;
-    //     this.isLoading = false;
-    //   }
-    // );
 
     authObservable.subscribe(
       resData => {
@@ -57,6 +54,7 @@ export class AuthComponent {
       },
       error => {
         this.isError = error;
+        this.showErrorAlert(error);
         this.isLoading = false;
       }
     );
@@ -66,5 +64,31 @@ export class AuthComponent {
 
   onErrorHandle() {
     this.isError = null;
+  }
+
+  private showErrorAlert(errMessage: string) {
+    // 建立 AlertComponent 工廠
+    const AlertCmpFty = this.ComponentFactoryResolver.resolveComponentFactory(AlertComponent);
+    this.theViewContainerRef.clear();
+
+     // 插入 AlertComponent 到 ng-template 中
+    const compRef = this.theViewContainerRef.createComponent(AlertCmpFty);
+
+    compRef.instance.message = errMessage;
+    compRef.instance.close.subscribe(() => {
+      console.log(11);
+      this.theViewContainerRef.clear();
+    });
+
+    //手動實例Component
+    // const AlertCmpFty = this.ComponentFactoryResolver.resolveComponentFactory(AlertComponent);
+    // const hostViewContainerRef = this.alertHost.ViewContainerRef;
+    // hostViewContainerRef.clear();
+
+    // const componentRef = hostViewContainerRef.createComponent(AlertCmpFty);
+    // componentRef.instance.message = errMessage;
+    // componentRef.instance.close.pipe(take(1)).subscribe(() => {
+    //   hostViewContainerRef.clear();
+    // });
   }
 }
