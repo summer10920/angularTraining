@@ -1,3 +1,4 @@
+import { LogTestService } from './log-test.service';
 // import { AuthModule } from './auth/auth.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -33,5 +34,6 @@ import { CoreModule } from './core/core.module';
     // AuthModule
   ],
   bootstrap: [AppComponent],
+  // providers: [LogTestService]
 })
 export class AppModule { }

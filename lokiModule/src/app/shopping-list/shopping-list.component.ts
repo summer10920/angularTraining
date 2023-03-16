@@ -1,3 +1,4 @@
+import { LogTestService } from './../log-test.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
@@ -13,7 +14,10 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   ingredients: Ingredient[];
   private subscription: Subscription;
 
-  constructor(private slService: ShoppingListService) { }
+  constructor(
+    private slService: ShoppingListService,
+    private LogTestService: LogTestService
+  ) { }
 
   ngOnInit() {
     this.ingredients = this.slService.getIngredients();
@@ -23,6 +27,7 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
           this.ingredients = ingredients;
         }
       );
+    this.LogTestService.printLog('ShoppingListComponent');
   }
 
   onEditItem(index: number) {

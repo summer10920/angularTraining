@@ -1,3 +1,4 @@
+import { LogTestService } from './../log-test.service';
 import { NgModule } from '@angular/core';
 
 import { AuthInterceptorService } from '../auth/auth-interceptor.service';
@@ -13,7 +14,9 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,
       multi: true
-    }
+    },
+    // LogTestService
   ],
+
 })
 export class CoreModule { }

@@ -1,3 +1,4 @@
+import { LogTestService } from './log-test.service';
 import { AuthService } from './auth/auth.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -15,10 +16,12 @@ import { Component, OnInit } from '@angular/core';
 // }
 export class AppComponent implements OnInit {
   constructor(
-    private AuthService: AuthService
+    private AuthService: AuthService,
+    private LogTestService: LogTestService
   ) { }
 
   ngOnInit(): void {
     this.AuthService.autoSignIn();
+    this.LogTestService.printLog('AppComponent');
   }
 }

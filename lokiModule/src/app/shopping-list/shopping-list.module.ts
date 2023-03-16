@@ -6,6 +6,7 @@ import { NgModule } from '@angular/core';
 
 import { ShoppingListComponent } from './shopping-list.component';
 import { ShoppingEditComponent } from './shopping-edit/shopping-edit.component';
+import { LogTestService } from '../log-test.service';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,8 @@ import { ShoppingEditComponent } from './shopping-edit/shopping-edit.component';
       { path: '', component: ShoppingListComponent },
     ]),
     SharedModule
-  ]
+  ],
+  // providers: [LogTestService]
+
 })
 export class ShoppingListModule { }
