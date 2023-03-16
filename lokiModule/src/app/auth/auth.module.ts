@@ -1,12 +1,22 @@
+import { SharedModule } from './../shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-
+import { AuthComponent } from './auth.component';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    AuthComponent,
+  ],
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule,
+    RouterModule.forRoot([
+      { path: 'auth', component: AuthComponent }
+    ]),
+    SharedModule
   ]
 })
 export class AuthModule { }
