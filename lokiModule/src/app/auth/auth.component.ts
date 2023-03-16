@@ -1,5 +1,5 @@
 import { take } from 'rxjs/operators';
-import { AlertComponent } from './../shared/alert/alert/alert.component';
+import { AlertComponent } from './../shared/alert/alert.component';
 import { Router } from '@angular/router';
 import { AuthResponseData, AuthService } from './auth.service';
 import { NgForm } from '@angular/forms';
