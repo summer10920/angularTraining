@@ -7,9 +7,6 @@ import { NgModule } from '@angular/core';
 import { ShoppingListComponent } from './shopping-list.component';
 import { ShoppingEditComponent } from './shopping-edit/shopping-edit.component';
 
-
-
-
 @NgModule({
   declarations: [
     ShoppingListComponent,
@@ -19,7 +16,8 @@ import { ShoppingEditComponent } from './shopping-edit/shopping-edit.component';
     // CommonModule,
     FormsModule,
     RouterModule.forChild([
-      { path: 'shopping-list', component: ShoppingListComponent },
+      // { path: 'shopping-list', component: ShoppingListComponent },
+      { path: '', component: ShoppingListComponent },
     ]),
     SharedModule
   ]
