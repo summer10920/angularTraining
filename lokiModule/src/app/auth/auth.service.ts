@@ -1,3 +1,4 @@
+import { environment } from './../../environments/environment';
 import { Router } from '@angular/router';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -31,7 +32,8 @@ export class AuthService {
 
   singUp(email: string, password: string) {
     return this.http.post<AuthResponseData>(
-      'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBD5oglUIsgkYiQlabvMw1Y8OGsGC_w6JA',
+      // 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBD5oglUIsgkYiQlabvMw1Y8OGsGC_w6JA',
+      'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key'+environment.firebaseAPIKey,
       {
         email: email,
         password: password,
@@ -50,7 +52,8 @@ export class AuthService {
 
   singIn(email: string, password: string) {
     return this.http.post<AuthResponseData>(
-      'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBD5oglUIsgkYiQlabvMw1Y8OGsGC_w6JA',
+      // 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBD5oglUIsgkYiQlabvMw1Y8OGsGC_w6JA',
+      'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key='+environment.firebaseAPIKey,
       {
         email: email,
         password: password,
