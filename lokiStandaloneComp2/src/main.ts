@@ -1,4 +1,5 @@
-import { enableProdMode } from '@angular/core';
+import { AppRoutingModule } from './app/app-routing.module';
+import { enableProdMode, importProvidersFrom } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 
 import { AppComponent } from './app/app.component';
@@ -12,5 +13,6 @@ if (environment.production) {
 bootstrapApplication(AppComponent, {
   providers: [
     // AnalyticsService,
+    importProvidersFrom(AppRoutingModule)
   ],
 });
