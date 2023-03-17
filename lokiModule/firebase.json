@@ -1,0 +1,10 @@
+{
+  "hosting": {
+    "public": "dist\\ng-complete-guide-update",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
