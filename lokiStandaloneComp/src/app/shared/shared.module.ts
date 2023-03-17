@@ -1,9 +1,9 @@
-import { NgModule } from '@angular/core';
+// import { NgModule } from '@angular/core';
 
-import { HighlightDirective } from './highlight.directive';
+// import { HighlightDirective } from './highlight.directive';
 
-@NgModule({
-  declarations: [HighlightDirective],
-  exports: [HighlightDirective],
-})
-export class SharedModule {}
+// @NgModule({
+//   declarations: [HighlightDirective],
+//   exports: [HighlightDirective],
+// })
+// export class SharedModule {}
